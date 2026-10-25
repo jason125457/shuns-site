@@ -1,0 +1,12 @@
+# 攝影：要嵌入的 Instagram 貼文，照這裡的順序顯示，建議 3–9 篇。
+# 欄位：
+#   id        代號，小寫英文、數字、連字號，不能重複
+#   instagram 貼文網址（/p/ 或 /reel/，後面的 ?igsh=... 會自動去掉）
+#   caption   （選填）一句說明，100 字以內
+#
+# 範例：
+# - id: tamsui-dusk
+#   instagram: https://www.instagram.com/p/XXXXXXXXXXX/
+#   caption: 淡水，傍晚。
+
+[]

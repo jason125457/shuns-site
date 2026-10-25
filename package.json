@@ -17,12 +17,14 @@
     "test": "vitest run"
   },
   "dependencies": {
-    "astro": "^7.4.2"
+    "astro": "^7.4.2",
+    "yaml": "^2.9.1"
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.12",
     "@eslint/js": "^10.0.1",
     "@phosphor-icons/core": "^2.1.1",
+    "@types/node": "^24.19.2",
     "eslint": "^10.13.0",
     "eslint-plugin-astro": "^1.7.0",
     "prettier": "^3.9.10",

@@ -1,13 +1,9 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { getCovers, getPhotos, getProjects } from '../lib/content';
 
-// Placeholder sections; each gets real content and data in phase 2–3 (see PLAN.md).
-const sections = [
-  { id: 'covers', no: '01', title: '翻唱', note: 'YouTube 翻唱清單' },
-  { id: 'projects', no: '02', title: 'AI 專案', note: '記帳工具、Guitar 工具' },
-  { id: 'photos', no: '03', title: '攝影', note: 'Instagram 精選' },
-  { id: 'about', no: '04', title: '關於', note: '自我介紹與聯絡方式' },
-];
+// Sections still show placeholder layouts; phase 3 (PLAN.md) replaces them with the real cards.
+const [covers, projects, photos] = await Promise.all([getCovers(), getProjects(), getPhotos()]);
 ---
 
 <BaseLayout>
@@ -21,15 +17,55 @@ const sections = [
     <p class="lede">網站建置中。這裡之後會放我的翻唱、AI 小工具和攝影作品。</p>
   </section>
 
-  {sections.map((section) => (
-    <section id={section.id} class="container section" aria-labelledby={`${section.id}-title`}>
-      <p class="meta">
-        {section.no} ▸ {section.id}
-      </p>
-      <h2 id={`${section.id}-title`}>{section.title}</h2>
-      <p class="placeholder">建置中：{section.note}</p>
-    </section>
-  ))}
+  <section id="covers" class="container section" aria-labelledby="covers-title">
+    <p class="meta">01 ▸ covers ▸ {covers.length}</p>
+    <h2 id="covers-title">翻唱</h2>
+    {covers.length === 0 ? (
+      <p class="placeholder">還沒有加入翻唱。</p>
+    ) : (
+      <ul>
+        {covers.map((cover) => (
+          <li>
+            {cover.title} ▸ {cover.artist}
+          </li>
+        ))}
+      </ul>
+    )}
+  </section>
+
+  <section id="projects" class="container section" aria-labelledby="projects-title">
+    <p class="meta">02 ▸ projects ▸ {projects.length}</p>
+    <h2 id="projects-title">AI 專案</h2>
+    <ul>
+      {projects.map((project) => (
+        <li>
+          <a href={project.url}>{project.name}</a>：{project.summary}
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <section id="photos" class="container section" aria-labelledby="photos-title">
+    <p class="meta">03 ▸ photos ▸ {photos.length}</p>
+    <h2 id="photos-title">攝影</h2>
+    {photos.length === 0 ? (
+      <p class="placeholder">還沒有加入照片。</p>
+    ) : (
+      <ul>
+        {photos.map((photo) => (
+          <li>
+            <a href={photo.instagram.permalink}>{photo.caption ?? photo.id}</a>
+          </li>
+        ))}
+      </ul>
+    )}
+  </section>
+
+  <section id="about" class="container section" aria-labelledby="about-title">
+    <p class="meta">04 ▸ about</p>
+    <h2 id="about-title">關於</h2>
+    <p class="placeholder">建置中：自我介紹與聯絡方式</p>
+  </section>
 </BaseLayout>
 
 <style>
@@ -56,6 +92,11 @@ const sections = [
     margin-block: var(--space-1) var(--space-2);
     font-family: var(--font-serif-tc);
     font-size: var(--text-xl);
+  }
+
+  .section ul {
+    max-width: var(--prose-max);
+    padding-left: 1.25em;
   }
 
   .placeholder {

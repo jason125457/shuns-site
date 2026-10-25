@@ -1,0 +1,18 @@
+# 翻唱清單：每首一筆，新的放最上面也可以，頁面會依日期排序。
+# 欄位：
+#   id      網址用的代號，小寫英文、數字、連字號，不能重複
+#   title   曲名
+#   artist  原唱
+#   youtube YouTube 網址（watch?v=、youtu.be、shorts 都可以）
+#   date    發布日期，格式 2026-10-25
+#   note    一兩句心得（200 字以內）
+#
+# 範例（把 # 拿掉再改成真的內容）：
+# - id: when-the-sun-hits
+#   title: When the Sun Hits
+#   artist: Slowdive
+#   youtube: https://youtu.be/XXXXXXXXXXX
+#   date: 2026-10-01
+#   note: 一兩句心得。
+
+[]

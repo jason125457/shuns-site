@@ -5,7 +5,7 @@
 ## 已確定的決定
 
 - **內容**：首頁單頁捲動，依序是開場 → 🎸 翻唱 → 🤖 AI 專案 → 📷 攝影 → 關於／聯絡。之後內容多了，再把翻唱、攝影拆成獨立頁。
-- **AI 專案只放兩個**：記帳工具（money.shuns.site，GitHub `jason125457/old-account`）、Guitar 工具（guitar.shuns.site，GitHub `jason125457/guitar-idea-pad`）。私人 repo 不放 GitHub 連結。
+- **AI 專案只放兩個**：記帳工具（money.shuns.site，GitHub `jason125457/old-account`）、Guitar 工具「指板靈感本」（guitar.chordy.site，GitHub `jason125457/guitar-idea-pad`）。私人 repo 不放 GitHub 連結。
 - **技術**：Astro ＋ TypeScript，純靜態輸出，樣式用原生 CSS ＋ 設計 token（不另外裝 Tailwind／UI 套件，相依套件越少越好）。部署到 Cloudflare Workers 的靜態資產（免費、不綁卡），由 GitHub Actions 自動部署。
 - **資料**：三個 YAML 清單檔，加上 Astro content collections 的 schema 驗證。少填欄位或網址格式錯誤時，build 會直接失敗，錯誤不會上線。
 
@@ -28,7 +28,10 @@ src/data/photos.yaml     # IG 貼文網址、（選填）說明
 - 全站版型：`<head>` SEO 與 OG、字體載入、設計 token、深淺色切換（沒切過就跟隨系統；首屏前用一小段 inline script 套用，避免閃一下）、顆粒層、skip link、導覽列、頁尾。
 - 完成標準：`npm run dev` 能在本機看到空白版型，淺色和深色都正常。
 
-### 2. 資料檔與 schema
+### 2. 資料檔與 schema ✅（2026-10-25）
+
+- 結果：內建 `file()` loader 遇到壞 YAML 或缺 id 只會寫 log、build 照樣成功，所以改用自訂的嚴格 loader（`src/lib/yaml-loader.ts`）。翻唱、攝影目前是空清單；專案已填兩筆，介紹是依 README 寫的草稿。
+- guitar 專案的網址：使用者決定用 `https://guitar.chordy.site`（repo 實際綁定的網域；`guitar.shuns.site` 目前連不上）。
 
 - 三個 collection 的 zod schema；YouTube 網址解析出影片 ID 的小函式。
 - 先放少量**標明是範例**的資料讓版面能跑，等你提供真資料再換掉。不會編造你的歌單或作品內容。
