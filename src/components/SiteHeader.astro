@@ -1,0 +1,103 @@
+---
+import ThemeToggle from './ThemeToggle.astro';
+
+const links = [
+  { href: '#covers', label: '翻唱' },
+  { href: '#projects', label: '專案' },
+  { href: '#photos', label: '攝影' },
+  { href: '#about', label: '關於' },
+];
+---
+
+<header class="site-header" data-site-header>
+  <div class="container bar">
+    <a class="brand" href="/">
+      Shun
+    </a>
+    <nav aria-label="主要導覽">
+      <ul>
+        {links.map((link) => (
+          <li>
+            <a href={link.href}>{link.label}</a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+    <ThemeToggle />
+  </div>
+</header>
+
+<script>
+  // Thin bottom rule once the page has scrolled, so the bar separates from content.
+  const header = document.querySelector<HTMLElement>('[data-site-header]');
+  const sentinel = document.createElement('div');
+  sentinel.setAttribute('aria-hidden', 'true');
+  document.body.prepend(sentinel);
+  new IntersectionObserver(([entry]) => {
+    header?.classList.toggle('is-scrolled', !entry.isIntersecting);
+  }).observe(sentinel);
+</script>
+
+<style>
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: var(--bg);
+    border-bottom: 1px solid transparent;
+    transition: border-color var(--dur-base) var(--ease-out);
+  }
+
+  .site-header.is-scrolled {
+    border-bottom-color: var(--border);
+  }
+
+  .bar {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    height: var(--header-h);
+  }
+
+  .brand {
+    margin-right: auto;
+    font-family: var(--font-display);
+    font-size: var(--text-lg);
+    font-weight: 500;
+    color: var(--fg);
+    text-decoration: none;
+  }
+
+  ul {
+    display: flex;
+    gap: var(--space-1);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  nav a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 2.75rem;
+    padding-inline: 0.375rem;
+    color: var(--fg-muted);
+    font-size: var(--text-sm);
+    text-decoration: none;
+    transition: color var(--dur-fast) var(--ease-out);
+  }
+
+  nav a:hover {
+    color: var(--fg);
+  }
+
+  @media (min-width: 640px) {
+    ul {
+      gap: var(--space-3);
+    }
+
+    nav a {
+      font-size: var(--text-base);
+    }
+  }
+</style>

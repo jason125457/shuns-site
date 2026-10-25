@@ -1,0 +1,74 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+// Placeholder sections; each gets real content and data in phase 2–3 (see PLAN.md).
+const sections = [
+  { id: 'covers', no: '01', title: '翻唱', note: 'YouTube 翻唱清單' },
+  { id: 'projects', no: '02', title: 'AI 專案', note: '記帳工具、Guitar 工具' },
+  { id: 'photos', no: '03', title: '攝影', note: 'Instagram 精選' },
+  { id: 'about', no: '04', title: '關於', note: '自我介紹與聯絡方式' },
+];
+---
+
+<BaseLayout>
+  <section class="container hero" aria-labelledby="hero-title">
+    <p class="meta">Shun ▸ 35mm ▸ 2026</p>
+    <h1 id="hero-title">
+      翻唱、寫程式、
+      <br />
+      拍照的人。
+    </h1>
+    <p class="lede">網站建置中。這裡之後會放我的翻唱、AI 小工具和攝影作品。</p>
+  </section>
+
+  {sections.map((section) => (
+    <section id={section.id} class="container section" aria-labelledby={`${section.id}-title`}>
+      <p class="meta">
+        {section.no} ▸ {section.id}
+      </p>
+      <h2 id={`${section.id}-title`}>{section.title}</h2>
+      <p class="placeholder">建置中：{section.note}</p>
+    </section>
+  ))}
+</BaseLayout>
+
+<style>
+  .hero {
+    padding-block: var(--space-8) var(--space-6);
+  }
+
+  .hero h1 {
+    margin-block: var(--space-2) var(--space-3);
+    font-size: var(--text-2xl);
+  }
+
+  .lede {
+    max-width: var(--prose-max);
+    color: var(--fg-muted);
+  }
+
+  .section {
+    padding-block: var(--space-8);
+    border-top: 1px solid var(--border);
+  }
+
+  .section h2 {
+    margin-block: var(--space-1) var(--space-2);
+    font-family: var(--font-serif-tc);
+    font-size: var(--text-xl);
+  }
+
+  .placeholder {
+    color: var(--fg-muted);
+  }
+
+  @media (min-width: 640px) {
+    .hero {
+      padding-block: var(--space-12) var(--space-8);
+    }
+
+    .section {
+      padding-block: var(--space-12);
+    }
+  }
+</style>

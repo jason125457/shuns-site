@@ -1,0 +1,83 @@
+---
+import Icon from './Icon.astro';
+---
+
+<button type="button" class="theme-toggle" data-theme-toggle aria-label="切換深淺色">
+  <span class="when-light">
+    <Icon name="moon" />
+  </span>
+  <span class="when-dark">
+    <Icon name="sun" />
+  </span>
+</button>
+
+<script>
+  import { THEME_STORAGE_KEY, resolveTheme, toggleTheme } from '../lib/theme';
+
+  const root = document.documentElement;
+  const button = document.querySelector<HTMLButtonElement>('[data-theme-toggle]');
+
+  function current() {
+    return resolveTheme(root.dataset.theme, matchMedia('(prefers-color-scheme: dark)').matches);
+  }
+
+  function sync() {
+    button?.setAttribute('aria-pressed', String(current() === 'dark'));
+  }
+
+  button?.addEventListener('click', () => {
+    const next = toggleTheme(current());
+    root.dataset.theme = next;
+    try {
+      localStorage.setItem(THEME_STORAGE_KEY, next);
+    } catch {
+      // Storage can be blocked (private mode); the choice then lasts for this page only.
+    }
+    sync();
+  });
+
+  sync();
+</script>
+
+<style>
+  .theme-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    padding: 0;
+    border: 1px solid transparent;
+    border-radius: 50%;
+    background: transparent;
+    color: var(--fg);
+    cursor: pointer;
+    transition: border-color var(--dur-fast) var(--ease-out);
+  }
+
+  .theme-toggle:hover {
+    border-color: var(--border);
+  }
+
+  .when-dark {
+    display: none;
+  }
+
+  :global(:root[data-theme='dark']) .when-dark {
+    display: inline-flex;
+  }
+
+  :global(:root[data-theme='dark']) .when-light {
+    display: none;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :global(:root:not([data-theme='light'])) .when-dark {
+      display: inline-flex;
+    }
+
+    :global(:root:not([data-theme='light'])) .when-light {
+      display: none;
+    }
+  }
+</style>

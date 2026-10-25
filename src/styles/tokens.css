@@ -1,0 +1,81 @@
+/* Design tokens for direction A「底片暗房」. Source of truth: design-system/MASTER.md. */
+
+:root {
+  --bg: #f3ebdd;
+  --surface: #fbf6ee;
+  --fg: #2a241d;
+  --fg-muted: #5b4f42;
+  --accent: #9c4421;
+  --accent-2: #3f6e6f;
+  --border: #d9cbb3;
+  --frame: #ffffff;
+  --grain-opacity: 0.06;
+
+  --font-display: 'Fraunces', 'Noto Serif TC', Georgia, serif;
+  --font-serif-tc: 'Noto Serif TC', 'Fraunces', serif;
+  --font-body:
+    'Noto Sans TC', system-ui, -apple-system, 'Segoe UI', 'PingFang TC', 'Microsoft JhengHei',
+    sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, 'Cascadia Mono', Consolas, monospace;
+
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.25rem;
+  --text-xl: 1.75rem;
+  --text-2xl: 2rem;
+
+  --space-1: 0.5rem;
+  --space-2: 1rem;
+  --space-3: 1.5rem;
+  --space-4: 2rem;
+  --space-6: 3rem;
+  --space-8: 4rem;
+  --space-12: 6rem;
+
+  --content-max: 1100px;
+  --prose-max: 68ch;
+  --radius: 4px;
+  --header-h: 3.75rem;
+
+  --dur-fast: 200ms;
+  --dur-base: 300ms;
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+
+  color-scheme: light;
+}
+
+@media (min-width: 640px) {
+  :root {
+    --text-2xl: 2.5rem;
+  }
+}
+
+/* Dark room: warm black, paper-coloured text. Follows the system unless the visitor picked light. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    --bg: #1a1714;
+    --surface: #24201c;
+    --fg: #ede3d2;
+    --fg-muted: #b8aa96;
+    --accent: #e08a5e;
+    --accent-2: #7fb0ae;
+    --border: #3a332c;
+    --frame: #2e2924;
+    --grain-opacity: 0.08;
+    color-scheme: dark;
+  }
+}
+
+:root[data-theme='dark'] {
+  --bg: #1a1714;
+  --surface: #24201c;
+  --fg: #ede3d2;
+  --fg-muted: #b8aa96;
+  --accent: #e08a5e;
+  --accent-2: #7fb0ae;
+  --border: #3a332c;
+  --frame: #2e2924;
+  --grain-opacity: 0.08;
+  color-scheme: dark;
+}

@@ -1,0 +1,29 @@
+---
+// Phosphor regular icons, inlined at build time so they inherit currentColor.
+import arrowUpRight from '@phosphor-icons/core/assets/regular/arrow-up-right.svg?raw';
+import moon from '@phosphor-icons/core/assets/regular/moon.svg?raw';
+import sun from '@phosphor-icons/core/assets/regular/sun.svg?raw';
+
+const icons = { 'arrow-up-right': arrowUpRight, moon, sun };
+
+interface Props {
+  name: keyof typeof icons;
+  size?: number;
+  class?: string;
+}
+
+const { name, size = 20, class: className } = Astro.props;
+const svg = icons[name].replace(
+  '<svg ',
+  `<svg width="${size}" height="${size}" aria-hidden="true" focusable="false" `,
+);
+---
+
+<span class:list={['icon', className]} set:html={svg} />
+
+<style>
+  .icon {
+    display: inline-flex;
+    flex-shrink: 0;
+  }
+</style>

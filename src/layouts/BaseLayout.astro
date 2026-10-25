@@ -1,0 +1,85 @@
+---
+import SiteFooter from '../components/SiteFooter.astro';
+import SiteHeader from '../components/SiteHeader.astro';
+import { THEME_STORAGE_KEY } from '../lib/theme';
+import '../styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const siteName = 'Shun';
+const { title, description = 'Shun 的個人網站：翻唱、AI 小工具與攝影。' } = Astro.props;
+const fullTitle = title ? `${title} — ${siteName}` : `${siteName} — 翻唱、AI 專案、攝影`;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+const fonts =
+  'https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500&family=IBM+Plex+Mono&family=Noto+Sans+TC:wght@400;500&family=Noto+Serif+TC:wght@500&display=swap';
+---
+
+<!doctype html>
+<html lang="zh-Hant-TW">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" href="/favicon.ico" sizes="32x32" />
+    <meta name="theme-color" content="#f3ebdd" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#1a1714" media="(prefers-color-scheme: dark)" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={siteName} />
+    <meta property="og:locale" content="zh_TW" />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href={fonts} />
+
+    <!-- Apply a saved theme before first paint so the page never flashes the wrong colours. -->
+    <script is:inline define:vars={{ key: THEME_STORAGE_KEY }}>
+      try {
+        const saved = localStorage.getItem(key);
+        if (saved === 'light' || saved === 'dark') document.documentElement.dataset.theme = saved;
+      } catch {
+        // Storage blocked: follow the system setting.
+      }
+    </script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">
+      跳到主要內容
+    </a>
+    <SiteHeader />
+    <main id="main" tabindex="-1">
+      <slot />
+    </main>
+    <SiteFooter />
+  </body>
+</html>
+
+<style>
+  .skip-link {
+    position: absolute;
+    top: var(--space-1);
+    left: var(--space-1);
+    z-index: 200;
+    padding: var(--space-1) var(--space-2);
+    background: var(--fg);
+    color: var(--bg);
+    transform: translateY(-200%);
+  }
+
+  .skip-link:focus {
+    transform: none;
+  }
+
+  main:focus {
+    outline: none;
+  }
+</style>
