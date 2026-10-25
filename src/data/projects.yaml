@@ -1,5 +1,5 @@
 # AI 專案卡片。order 越小越前面；repo 只放公開的 GitHub repo，私人 repo 不要填。
-# 截圖放在 src/assets/projects/ 之後填 screenshot: ../assets/projects/檔名.webp
+# 截圖放在 src/assets/projects/（1280×800），填 screenshot: ../assets/projects/檔名.png，build 時會自動轉成 WebP。
 # summary 是依各 repo 的 README 寫的草稿，請 Shun 確認或改寫。
 
 - id: money
@@ -8,6 +8,7 @@
   tech: [Google Apps Script, Gemini API, LINE Messaging API, Google Sheets]
   url: https://money.shuns.site
   repo: https://github.com/jason125457/old-account
+  screenshot: ../assets/projects/money.png
   order: 1
 
 - id: guitar
@@ -16,4 +17,5 @@
   tech: [TypeScript, React, Vite, Cloudflare]
   url: https://guitar.chordy.site
   repo: https://github.com/jason125457/guitar-idea-pad
+  screenshot: ../assets/projects/guitar.png
   order: 2

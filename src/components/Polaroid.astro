@@ -1,0 +1,70 @@
+---
+import type { ImageMetadata } from 'astro';
+import { Image } from 'astro:assets';
+
+interface Props {
+  image: ImageMetadata;
+  alt: string;
+  /** Rotation in degrees; straightens on hover and is dropped for reduced motion. */
+  tilt?: number;
+  /** Responsive `sizes` for the rendered image. */
+  sizes?: string;
+  caption?: string;
+  loading?: 'lazy' | 'eager';
+}
+
+const {
+  image,
+  alt,
+  tilt = 0,
+  sizes = '(min-width: 1024px) 480px, 100vw',
+  caption,
+  loading = 'lazy',
+} = Astro.props;
+---
+
+<figure class="polaroid" style={`--tilt: ${tilt}deg`}>
+  <Image
+    src={image}
+    alt={alt}
+    widths={[480, 800, 1280]}
+    sizes={sizes}
+    format="webp"
+    quality={80}
+    loading={loading}
+  />
+  {caption && <figcaption class="meta">{caption}</figcaption>}
+</figure>
+
+<style>
+  .polaroid {
+    margin: 0;
+    padding: 0.5rem 0.5rem 1.75rem;
+    background: var(--frame);
+    border: 1px solid var(--border);
+    transform: rotate(var(--tilt));
+    transition: transform var(--dur-fast) var(--ease-out);
+  }
+
+  .polaroid:hover {
+    transform: rotate(0deg);
+  }
+
+  img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 10;
+    object-fit: cover;
+    object-position: top left;
+  }
+
+  figcaption {
+    margin-top: 0.5rem;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .polaroid {
+      transform: none;
+    }
+  }
+</style>

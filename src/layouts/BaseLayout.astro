@@ -49,6 +49,12 @@ const fonts =
       } catch {
         // Storage blocked: follow the system setting.
       }
+      if (
+        'IntersectionObserver' in window &&
+        !matchMedia('(prefers-reduced-motion: reduce)').matches
+      ) {
+        document.documentElement.classList.add('js-reveal');
+      }
     </script>
   </head>
   <body>
@@ -60,6 +66,22 @@ const fonts =
       <slot />
     </main>
     <SiteFooter />
+    <script>
+      // Fade sections in once as they scroll into view; the head script only opts in when allowed.
+      if (document.documentElement.classList.contains('js-reveal')) {
+        const observer = new IntersectionObserver(
+          (entries) => {
+            for (const entry of entries) {
+              if (!entry.isIntersecting) continue;
+              entry.target.classList.add('is-visible');
+              observer.unobserve(entry.target);
+            }
+          },
+          { rootMargin: '0px 0px -10% 0px' },
+        );
+        document.querySelectorAll('[data-reveal]').forEach((el) => observer.observe(el));
+      }
+    </script>
   </body>
 </html>
 

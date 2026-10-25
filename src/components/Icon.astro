@@ -1,13 +1,27 @@
 ---
 // Phosphor regular icons, inlined at build time so they inherit currentColor.
 import arrowUpRight from '@phosphor-icons/core/assets/regular/arrow-up-right.svg?raw';
+import camera from '@phosphor-icons/core/assets/regular/camera.svg?raw';
+import githubLogo from '@phosphor-icons/core/assets/regular/github-logo.svg?raw';
 import moon from '@phosphor-icons/core/assets/regular/moon.svg?raw';
+import musicNotes from '@phosphor-icons/core/assets/regular/music-notes.svg?raw';
+import sparkle from '@phosphor-icons/core/assets/regular/sparkle.svg?raw';
 import sun from '@phosphor-icons/core/assets/regular/sun.svg?raw';
 
-const icons = { 'arrow-up-right': arrowUpRight, moon, sun };
+const icons = {
+  'arrow-up-right': arrowUpRight,
+  camera,
+  'github-logo': githubLogo,
+  moon,
+  'music-notes': musicNotes,
+  sparkle,
+  sun,
+};
+
+export type IconName = keyof typeof icons;
 
 interface Props {
-  name: keyof typeof icons;
+  name: IconName;
   size?: number;
   class?: string;
 }

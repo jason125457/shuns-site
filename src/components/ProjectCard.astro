@@ -1,0 +1,99 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import Icon from './Icon.astro';
+import Polaroid from './Polaroid.astro';
+
+interface Props {
+  project: CollectionEntry<'projects'>['data'];
+  /** 1-based position, printed like a frame number. */
+  index: number;
+}
+
+const { project, index } = Astro.props;
+const frame = String(index).padStart(2, '0');
+const host = new URL(project.url).host;
+---
+
+<article class="project" data-reveal>
+  {project.screenshot && (
+    <Polaroid
+      image={project.screenshot}
+      alt={`${project.name}的畫面截圖`}
+      tilt={index % 2 === 0 ? 1.5 : -1.5}
+      sizes="(min-width: 768px) 50vw, 100vw"
+    />
+  )}
+  <div class="body">
+    <p class="meta">
+      P-{frame} ▸ {host}
+    </p>
+    <h3>{project.name}</h3>
+    <p class="summary">{project.summary}</p>
+    <ul class="tags" aria-label="使用的技術">
+      {project.tech.map((tech) => (
+        <li>{tech}</li>
+      ))}
+    </ul>
+    <div class="links">
+      <a class="button button-primary" href={project.url} target="_blank" rel="noopener">
+        開啟網站
+        <Icon name="arrow-up-right" size={16} />
+        <span class="sr-only">（另開新視窗）</span>
+      </a>
+      {project.repo && (
+        <a class="button" href={project.repo} target="_blank" rel="noopener">
+          <Icon name="github-logo" size={18} />
+          GitHub
+          <span class="sr-only">（另開新視窗）</span>
+        </a>
+      )}
+    </div>
+  </div>
+</article>
+
+<style>
+  .project {
+    display: grid;
+    gap: var(--space-3);
+    align-content: start;
+  }
+
+  .body {
+    display: grid;
+    gap: var(--space-1);
+  }
+
+  h3 {
+    font-family: var(--font-serif-tc);
+    font-size: var(--text-lg);
+  }
+
+  .summary {
+    color: var(--fg-muted);
+  }
+
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.375rem;
+    margin: var(--space-1) 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .tags li {
+    padding: 0.125rem 0.5rem;
+    border: 1px solid var(--accent-2);
+    border-radius: var(--radius);
+    color: var(--accent-2);
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+  }
+
+  .links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-1);
+    margin-top: var(--space-2);
+  }
+</style>

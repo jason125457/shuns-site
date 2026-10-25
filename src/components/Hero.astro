@@ -1,0 +1,133 @@
+---
+import Icon, { type IconName } from './Icon.astro';
+
+// Three film frames that double as the table of contents. Swap the colour fields for real
+// thumbnails once covers and photos have content.
+const frames: { href: string; no: string; label: string; icon: IconName; tone: string }[] = [
+  { href: '#covers', no: '01', label: '翻唱', icon: 'music-notes', tone: 'var(--accent-2)' },
+  { href: '#projects', no: '02', label: 'AI 專案', icon: 'sparkle', tone: 'var(--accent)' },
+  { href: '#photos', no: '03', label: '攝影', icon: 'camera', tone: 'var(--tone-sand)' },
+];
+---
+
+<section class="container hero" aria-labelledby="hero-title">
+  <div class="intro">
+    <p class="meta">Shun ▸ 35mm ▸ 2026</p>
+    <h1 id="hero-title">
+      翻唱、寫程式、
+      <br />
+      拍照的人。
+    </h1>
+    <p class="lede">這裡收著我的吉他翻唱、自己做的 AI 小工具，還有攝影作品。</p>
+  </div>
+
+  <nav class="frames" aria-label="作品分類">
+    {frames.map((frame) => (
+      <a class="frame" href={frame.href}>
+        <span class="shot" style={`--tone: ${frame.tone}`}>
+          <Icon name={frame.icon} size={28} />
+        </span>
+        <span class="caption">
+          <span class="meta">{frame.no}</span>
+          {frame.label}
+        </span>
+      </a>
+    ))}
+  </nav>
+</section>
+
+<style>
+  .hero {
+    display: grid;
+    gap: var(--space-6);
+    padding-block: var(--space-6) var(--space-8);
+  }
+
+  h1 {
+    margin-block: var(--space-2) var(--space-3);
+    font-size: var(--text-2xl);
+  }
+
+  .lede {
+    max-width: 32ch;
+    color: var(--fg-muted);
+    font-size: var(--text-lg);
+    line-height: 1.6;
+  }
+
+  .frames {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--space-2);
+  }
+
+  .frame {
+    display: block;
+    padding: 0.375rem 0.375rem 0;
+    background: var(--frame);
+    border: 1px solid var(--border);
+    color: var(--fg);
+    text-decoration: none;
+    transform: rotate(var(--tilt, 0deg));
+    transition: transform var(--dur-fast) var(--ease-out);
+  }
+
+  .frame:nth-child(1) {
+    --tilt: -3deg;
+  }
+
+  .frame:nth-child(2) {
+    --tilt: 2deg;
+  }
+
+  .frame:nth-child(3) {
+    --tilt: -1deg;
+  }
+
+  .frame:hover,
+  .frame:focus-visible {
+    transform: rotate(0deg) translateY(-4px);
+  }
+
+  .shot {
+    display: grid;
+    place-items: center;
+    aspect-ratio: 4 / 5;
+    background: var(--tone);
+    color: var(--frame);
+  }
+
+  .caption {
+    display: flex;
+    align-items: baseline;
+    gap: 0.375rem;
+    min-height: 2.75rem;
+    padding: 0.5rem 0.125rem;
+    font-family: var(--font-serif-tc);
+    font-size: var(--text-sm);
+  }
+
+  @media (min-width: 768px) {
+    .hero {
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+      align-items: center;
+      padding-block: var(--space-12);
+    }
+
+    .frames {
+      gap: var(--space-3);
+    }
+
+    .caption {
+      font-size: var(--text-base);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .frame,
+    .frame:hover,
+    .frame:focus-visible {
+      transform: none;
+    }
+  }
+</style>

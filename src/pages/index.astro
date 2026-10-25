@@ -1,4 +1,6 @@
 ---
+import Hero from '../components/Hero.astro';
+import ProjectCard from '../components/ProjectCard.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { getCovers, getPhotos, getProjects } from '../lib/content';
 
@@ -7,15 +9,7 @@ const [covers, projects, photos] = await Promise.all([getCovers(), getProjects()
 ---
 
 <BaseLayout>
-  <section class="container hero" aria-labelledby="hero-title">
-    <p class="meta">Shun ▸ 35mm ▸ 2026</p>
-    <h1 id="hero-title">
-      翻唱、寫程式、
-      <br />
-      拍照的人。
-    </h1>
-    <p class="lede">網站建置中。這裡之後會放我的翻唱、AI 小工具和攝影作品。</p>
-  </section>
+  <Hero />
 
   <section id="covers" class="container section" aria-labelledby="covers-title">
     <p class="meta">01 ▸ covers ▸ {covers.length}</p>
@@ -36,13 +30,11 @@ const [covers, projects, photos] = await Promise.all([getCovers(), getProjects()
   <section id="projects" class="container section" aria-labelledby="projects-title">
     <p class="meta">02 ▸ projects ▸ {projects.length}</p>
     <h2 id="projects-title">AI 專案</h2>
-    <ul>
-      {projects.map((project) => (
-        <li>
-          <a href={project.url}>{project.name}</a>：{project.summary}
-        </li>
+    <div class="project-grid">
+      {projects.map((project, i) => (
+        <ProjectCard project={project} index={i + 1} />
       ))}
-    </ul>
+    </div>
   </section>
 
   <section id="photos" class="container section" aria-labelledby="photos-title">
@@ -69,20 +61,6 @@ const [covers, projects, photos] = await Promise.all([getCovers(), getProjects()
 </BaseLayout>
 
 <style>
-  .hero {
-    padding-block: var(--space-8) var(--space-6);
-  }
-
-  .hero h1 {
-    margin-block: var(--space-2) var(--space-3);
-    font-size: var(--text-2xl);
-  }
-
-  .lede {
-    max-width: var(--prose-max);
-    color: var(--fg-muted);
-  }
-
   .section {
     padding-block: var(--space-8);
     border-top: 1px solid var(--border);
@@ -99,15 +77,24 @@ const [covers, projects, photos] = await Promise.all([getCovers(), getProjects()
     padding-left: 1.25em;
   }
 
+  .project-grid {
+    display: grid;
+    gap: var(--space-8);
+    margin-top: var(--space-4);
+  }
+
+  @media (min-width: 768px) {
+    .project-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: var(--space-6);
+    }
+  }
+
   .placeholder {
     color: var(--fg-muted);
   }
 
   @media (min-width: 640px) {
-    .hero {
-      padding-block: var(--space-12) var(--space-8);
-    }
-
     .section {
       padding-block: var(--space-12);
     }

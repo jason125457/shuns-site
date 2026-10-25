@@ -6,9 +6,11 @@
   --fg: #2a241d;
   --fg-muted: #5b4f42;
   --accent: #9c4421;
+  --on-accent: #fbf6ee;
   --accent-2: #3f6e6f;
   --border: #d9cbb3;
   --frame: #ffffff;
+  --tone-sand: #c9a77c;
   --grain-opacity: 0.06;
 
   --font-display: 'Fraunces', 'Noto Serif TC', Georgia, serif;
@@ -59,9 +61,11 @@
     --fg: #ede3d2;
     --fg-muted: #b8aa96;
     --accent: #e08a5e;
+    --on-accent: #1a1714;
     --accent-2: #7fb0ae;
     --border: #3a332c;
     --frame: #2e2924;
+    --tone-sand: #8a6f4f;
     --grain-opacity: 0.08;
     color-scheme: dark;
   }
@@ -73,9 +77,11 @@
   --fg: #ede3d2;
   --fg-muted: #b8aa96;
   --accent: #e08a5e;
+  --on-accent: #1a1714;
   --accent-2: #7fb0ae;
   --border: #3a332c;
   --frame: #2e2924;
+  --tone-sand: #8a6f4f;
   --grain-opacity: 0.08;
   color-scheme: dark;
 }
