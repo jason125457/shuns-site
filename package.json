@@ -14,7 +14,8 @@
     "lint": "eslint .",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "test": "vitest run"
+    "test": "vitest run",
+    "deploy": "astro build && wrangler deploy"
   },
   "dependencies": {
     "astro": "^7.4.2",
@@ -31,6 +32,7 @@
     "prettier-plugin-astro": "^1.1.2",
     "typescript": "^6.0.3",
     "typescript-eslint": "^8.72.0",
-    "vitest": "^5.0.5"
+    "vitest": "^5.0.5",
+    "wrangler": "^4.152.0"
   }
 }

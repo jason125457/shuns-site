@@ -56,7 +56,12 @@ src/data/photos.yaml     # IG 貼文網址、（選填）說明
 - 效能：圖片 WebP 並標好寬高，第三方嵌入點了才載入。目標是 Lighthouse 四項都 ≥ 95。
 - favicon、OG 分享圖、`sitemap.xml`、`robots.txt`、404 頁。
 
-### 5. 部署
+### 5. 部署（部分完成，2026-10-25）
+
+- ✅ `shuns.site` 已上線（wrangler 手動部署，只放靜態資產）。
+- ✅ CI／部署 workflow 和 variable `CLOUDFLARE_ACCOUNT_ID` 都已設定；還缺 secret `CLOUDFLARE_API_TOKEN`。
+- 待做：`www.shuns.site` 要等階段 0（資訊網搬到 feed.shuns.site）完成才能綁。
+- 備註：`npm audit` 回報 wrangler 內建 miniflare 的 undici 有漏洞，只影響本機開發工具，不會進到網站；等 wrangler 更新即可。
 
 - 建立 GitHub repo `jason125457/shuns-site`（公開，可以當作品之一）。
 - `wrangler.jsonc`：只放靜態資產，用 custom domain 綁 `shuns.site` 和 `www.shuns.site`。`www` 要等階段 0 完成才能綁。

@@ -1,0 +1,12 @@
+{
+  // Static assets only: Cloudflare serves dist/ directly, no Worker code runs.
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "shuns-site",
+  "compatibility_date": "2026-10-01",
+  "assets": {
+    "directory": "./dist",
+    "not_found_handling": "none",
+  },
+  // www.shuns.site is added once Personal Feed has moved to feed.shuns.site (PLAN.md phase 0).
+  "routes": [{ "pattern": "shuns.site", "custom_domain": true }],
+}

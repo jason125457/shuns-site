@@ -1,6 +1,6 @@
 # shuns.site
 
-Shun 的個人網站：翻唱、AI 專案、攝影。Astro 純靜態網站，部署在 Cloudflare Workers 的靜態資產（部署設定在階段 5）。
+Shun 的個人網站：翻唱、AI 專案、攝影。Astro 純靜態網站，部署在 Cloudflare Workers 的靜態資產：https://shuns.site
 
 ## 本機開發
 
@@ -22,6 +22,13 @@ npm run dev        # http://localhost:4321
 | `npm run lint`    | ESLint                     |
 | `npm run format`  | Prettier 格式化            |
 | `npm test`        | Vitest 單元測試            |
+
+## 部署
+
+- 推到 `main` 時，`.github/workflows/deploy.yml` 會先跑完整檢查（`ci.yml`），通過後才部署到 Cloudflare。
+- 要讓自動部署能運作，repo 需要：secret `CLOUDFLARE_API_TOKEN`（使用者自己建立並貼上，權限只要 Workers Scripts Edit），以及 variable `CLOUDFLARE_ACCOUNT_ID`（已設定）。
+- 手動部署：`npm run deploy`（需要先 `npx wrangler login`）。
+- 設定在 `wrangler.jsonc`：只放靜態資產，不執行任何 Worker 程式。
 
 ## 更新內容
 
