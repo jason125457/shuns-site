@@ -17,7 +17,9 @@ src/data/photos.yaml     # IG 貼文網址、（選填）說明
 
 ## 階段
 
-### 0. 資訊網搬家（在 `mywebsite` 做，可以和 1–3 同時進行）
+### 0. 資訊網搬家 ✅（2026-10-26）
+
+- 完成：jason125457/my_information_wedsite PR #25 合併後部署到 `feed.shuns.site`，Supabase Auth 的 `site_url` 和回跳網址已改成新網址並推上去，`www` 已從資訊網解除綁定。
 
 照 HANDOFF 的步驟：改 `wrangler.jsonc`、`supabase/config.toml` → 開 PR → CI → 合併 → 確認 `feed.shuns.site` 能登入 → `www` 空出來。
 另外要確認 `shuns.site`（apex）目前有沒有 DNS 紀錄擋著。
@@ -60,7 +62,7 @@ src/data/photos.yaml     # IG 貼文網址、（選填）說明
 
 - ✅ `shuns.site` 已上線（wrangler 手動部署，只放靜態資產）。
 - ✅ CI／部署 workflow 和 variable `CLOUDFLARE_ACCOUNT_ID` 都已設定；還缺 secret `CLOUDFLARE_API_TOKEN`。
-- 待做：`www.shuns.site` 要等階段 0（資訊網搬到 feed.shuns.site）完成才能綁。
+- ✅ `www.shuns.site` 已綁到本站（2026-10-26），canonical 仍是 `https://shuns.site`。
 - 備註：`npm audit` 回報 wrangler 內建 miniflare 的 undici 有漏洞，只影響本機開發工具，不會進到網站；等 wrangler 更新即可。
 
 - 建立 GitHub repo `jason125457/shuns-site`（公開，可以當作品之一）。
