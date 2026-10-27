@@ -1,18 +1,62 @@
-# 翻唱清單：每首一筆，新的放最上面也可以，頁面會依日期排序。
+# 翻唱清單：頁面依日期由新到舊排序。資料來自 YouTube 頻道 @shun1989 的官方 RSS（2026-10-27）。
 # 欄位：
 #   id      網址用的代號，小寫英文、數字、連字號，不能重複
 #   title   曲名
 #   artist  原唱
 #   youtube YouTube 網址（watch?v=、youtu.be、shorts 都可以）
 #   date    發布日期，格式 2026-10-25
-#   note    一兩句心得（200 字以內）
-#
-# 範例（把 # 拿掉再改成真的內容）：
-# - id: when-the-sun-hits
-#   title: When the Sun Hits
-#   artist: Slowdive
-#   youtube: https://youtu.be/XXXXXXXXXXX
-#   date: 2026-10-01
-#   note: 一兩句心得。
+#   note    （選填）一兩句心得，200 字以內；沒寫的卡片就不顯示這一行
 
-[]
+- id: 2026-10-25
+  title: 濕了分寸
+  artist: 謝震廷
+  youtube: https://youtu.be/LS7zapKvJYw
+  date: 2026-10-25
+
+- id: 2026-09-28
+  title: 讓我留在你身邊
+  artist: 陳奕迅
+  youtube: https://youtu.be/5MCQlQFUnpc
+  date: 2026-09-28
+
+- id: 2026-09-25
+  title: 軟弱
+  artist: schoolgirl byebye
+  youtube: https://youtu.be/szf68gCzjgQ
+  date: 2026-09-25
+
+- id: 2025-02-16
+  title: 黑暗的盡頭
+  artist: Crispy脆樂團
+  youtube: https://youtu.be/uHTR3rIXwjU
+  date: 2025-02-16
+
+- id: 2024-12-28
+  title: 長成什麼樣子算愛情
+  artist: 糜先生
+  youtube: https://youtu.be/QeWTAOjqsjE
+  date: 2024-12-28
+
+- id: 2024-11-02
+  title: 不為誰而作的歌
+  artist: 林俊傑
+  youtube: https://youtu.be/v8OnAAHRQ-0
+  date: 2024-11-02
+
+- id: 2024-10-27-keyi-le
+  title: 可以了
+  artist: 陳奕迅
+  youtube: https://youtu.be/7g3H9ooa-FE
+  date: 2024-10-27
+
+- id: 2024-10-27-yin-tian-kuai-le
+  title: 陰天快樂
+  artist: 陳奕迅
+  youtube: https://youtu.be/BWoZxivdMpI
+  date: 2024-10-27
+
+- id: 2024-10-26
+  title: 我懷念的
+  artist: 孫燕姿
+  youtube: https://youtu.be/xEKoG7plywo
+  date: 2024-10-26

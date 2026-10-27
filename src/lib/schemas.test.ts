@@ -26,10 +26,17 @@ describe('coverSchema', () => {
     expect(result.error?.issues[0]?.message).toContain('YouTube');
   });
 
-  it('rejects missing fields, bad ids, bad dates, and unknown keys', () => {
+  it('keeps the note optional but rejects an empty one', () => {
     const withoutNote: Partial<typeof cover> = { ...cover };
     delete withoutNote.note;
-    expect(coverSchema.safeParse(withoutNote).success).toBe(false);
+    expect(coverSchema.parse(withoutNote).note).toBeUndefined();
+    expect(coverSchema.safeParse({ ...cover, note: '   ' }).success).toBe(false);
+  });
+
+  it('rejects missing fields, bad ids, bad dates, and unknown keys', () => {
+    const withoutArtist: Partial<typeof cover> = { ...cover };
+    delete withoutArtist.artist;
+    expect(coverSchema.safeParse(withoutArtist).success).toBe(false);
     expect(coverSchema.safeParse({ ...cover, id: 'Has Spaces' }).success).toBe(false);
     expect(coverSchema.safeParse({ ...cover, date: 'someday' }).success).toBe(false);
     expect(coverSchema.safeParse({ ...cover, artst: 'typo' }).success).toBe(false);

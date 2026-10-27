@@ -1,0 +1,110 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { formatFilmDate } from '../lib/date';
+import Icon from './Icon.astro';
+
+interface Props {
+  cover: CollectionEntry<'covers'>['data'];
+}
+
+const { cover } = Astro.props;
+const { id: videoId, url } = cover.youtube;
+const label = `${cover.title} — ${cover.artist}`;
+---
+
+<article class="cover" data-reveal>
+  <div class="frame">
+    {/* A plain YouTube link until JS swaps in the player on click, so nothing loads up front. */}
+    <a
+      class="facade"
+      href={url}
+      target="_blank"
+      rel="noopener"
+      data-youtube-id={videoId}
+      data-youtube-title={label}
+    >
+      <img
+        src={`https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`}
+        alt=""
+        width="480"
+        height="360"
+        loading="lazy"
+        decoding="async"
+      />
+      <span class="play">
+        <Icon name="play" size={22} />
+      </span>
+      <span class="sr-only">播放 {label}</span>
+    </a>
+  </div>
+  <h3>{cover.title}</h3>
+  <p class="meta artist">
+    {cover.artist} ▸ {formatFilmDate(cover.date)}
+  </p>
+  {cover.note && <p class="note">{cover.note}</p>}
+</article>
+
+<style>
+  .cover {
+    display: grid;
+    gap: 0.375rem;
+    align-content: start;
+  }
+
+  .frame {
+    margin-bottom: var(--space-1);
+    padding: 0.5rem;
+    background: var(--frame);
+    border: 1px solid var(--border);
+  }
+
+  .facade,
+  .frame :global(iframe) {
+    position: relative;
+    display: block;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    border: 0;
+    background: #000;
+  }
+
+  .facade img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .play {
+    position: absolute;
+    inset: 50% auto auto 50%;
+    display: grid;
+    place-items: center;
+    width: 3.25rem;
+    height: 3.25rem;
+    border-radius: 50%;
+    background: var(--accent);
+    color: var(--on-accent);
+    transform: translate(-50%, -50%);
+    transition: transform var(--dur-fast) var(--ease-out);
+  }
+
+  .facade:hover .play,
+  .facade:focus-visible .play {
+    transform: translate(-50%, -50%) scale(1.08);
+  }
+
+  h3 {
+    font-family: var(--font-serif-tc);
+    font-size: var(--text-lg);
+  }
+
+  /* Artist names keep their own styling (e.g. "schoolgirl byebye" is lowercase on purpose). */
+  .artist {
+    text-transform: none;
+  }
+
+  .note {
+    color: var(--fg-muted);
+    font-size: var(--text-sm);
+  }
+</style>

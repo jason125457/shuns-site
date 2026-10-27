@@ -1,0 +1,99 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  photos: CollectionEntry<'photos'>['data'][];
+}
+
+const { photos } = Astro.props;
+---
+
+<div class="grid" data-instagram-grid>
+  {photos.map((photo) => (
+    <figure class="frame">
+      {/* Instagram's embed.js turns each blockquote into the post; without it the link remains. */}
+      <blockquote
+        class="instagram-media"
+        data-instgrm-permalink={photo.instagram.permalink}
+        data-instgrm-version="14"
+      >
+        <a href={photo.instagram.permalink} target="_blank" rel="noopener">
+          在 Instagram 查看這篇貼文
+          <span class="sr-only">（另開新視窗）</span>
+        </a>
+      </blockquote>
+      {photo.caption && <figcaption class="meta">{photo.caption}</figcaption>}
+    </figure>
+  ))}
+</div>
+
+<script>
+  // Instagram's script is heavy and sets cookies, so it only loads once the grid is near.
+  const grid = document.querySelector('[data-instagram-grid]');
+
+  function loadEmbeds() {
+    const process = () =>
+      (window as { instgrm?: { Embeds: { process(): void } } }).instgrm?.Embeds.process();
+    if (document.querySelector('script[data-instagram-embed]')) return process();
+    const script = document.createElement('script');
+    script.src = 'https://www.instagram.com/embed.js';
+    script.async = true;
+    script.dataset.instagramEmbed = '';
+    script.addEventListener('load', process);
+    document.body.append(script);
+  }
+
+  if (grid) {
+    if ('IntersectionObserver' in window) {
+      const observer = new IntersectionObserver(
+        (entries) => {
+          if (!entries.some((entry) => entry.isIntersecting)) return;
+          observer.disconnect();
+          loadEmbeds();
+        },
+        { rootMargin: '600px 0px' },
+      );
+      observer.observe(grid);
+    } else {
+      loadEmbeds();
+    }
+  }
+</script>
+
+<style>
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 336px), 1fr));
+    gap: 0.75rem;
+    align-items: start;
+  }
+
+  /* Instagram's card is at least 326px wide, so the frame stays thin enough for three columns. */
+  .frame {
+    margin: 0;
+    padding: 0.25rem;
+    background: var(--frame);
+    border: 1px solid var(--border);
+  }
+
+  .frame :global(.instagram-media),
+  .frame :global(iframe) {
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: none !important;
+    margin: 0 !important;
+  }
+
+  blockquote.instagram-media {
+    display: grid;
+    place-items: center;
+    min-height: 20rem;
+    padding: var(--space-2);
+    background: var(--surface);
+    border: 0;
+  }
+
+  figcaption {
+    padding: 0.5rem 0.25rem 0.25rem;
+  }
+</style>

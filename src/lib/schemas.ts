@@ -35,8 +35,8 @@ export const coverSchema = z.strictObject({
   artist: z.string().trim().min(1),
   youtube: youtubeVideo,
   date: z.coerce.date(),
-  /** 一兩句心得 */
-  note: z.string().trim().min(1).max(200),
+  /** 一兩句心得；還沒寫的先留空，卡片就不顯示這一行 */
+  note: z.string().trim().min(1).max(200).optional(),
 });
 
 export const projectSchema = z.strictObject({

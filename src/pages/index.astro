@@ -1,10 +1,15 @@
 ---
+import CoverCard from '../components/CoverCard.astro';
 import Hero from '../components/Hero.astro';
+import Icon from '../components/Icon.astro';
+import InstagramGrid from '../components/InstagramGrid.astro';
 import ProjectCard from '../components/ProjectCard.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { getCovers, getPhotos, getProjects } from '../lib/content';
 
-// Sections still show placeholder layouts; phase 3 (PLAN.md) replaces them with the real cards.
+const YOUTUBE_CHANNEL = 'https://www.youtube.com/@shun1989';
+const INSTAGRAM_PROFILE = 'https://www.instagram.com/shun__098/';
+
 const [covers, projects, photos] = await Promise.all([getCovers(), getProjects(), getPhotos()]);
 ---
 
@@ -17,14 +22,18 @@ const [covers, projects, photos] = await Promise.all([getCovers(), getProjects()
     {covers.length === 0 ? (
       <p class="placeholder">還沒有加入翻唱。</p>
     ) : (
-      <ul>
+      <div class="cover-grid">
         {covers.map((cover) => (
-          <li>
-            {cover.title} ▸ {cover.artist}
-          </li>
+          <CoverCard cover={cover} />
         ))}
-      </ul>
+      </div>
     )}
+    <a class="button more" href={YOUTUBE_CHANNEL} target="_blank" rel="noopener">
+      <Icon name="youtube-logo" size={18} />
+      更多翻唱在 YouTube
+      <Icon name="arrow-up-right" size={16} />
+      <span class="sr-only">（另開新視窗）</span>
+    </a>
   </section>
 
   <section id="projects" class="container section" aria-labelledby="projects-title">
@@ -43,14 +52,14 @@ const [covers, projects, photos] = await Promise.all([getCovers(), getProjects()
     {photos.length === 0 ? (
       <p class="placeholder">還沒有加入照片。</p>
     ) : (
-      <ul>
-        {photos.map((photo) => (
-          <li>
-            <a href={photo.instagram.permalink}>{photo.caption ?? photo.id}</a>
-          </li>
-        ))}
-      </ul>
+      <InstagramGrid photos={photos} />
     )}
+    <a class="button more" href={INSTAGRAM_PROFILE} target="_blank" rel="noopener">
+      <Icon name="instagram-logo" size={18} />
+      更多作品在 Instagram
+      <Icon name="arrow-up-right" size={16} />
+      <span class="sr-only">（另開新視窗）</span>
+    </a>
   </section>
 
   <section id="about" class="container section" aria-labelledby="about-title">
@@ -60,6 +69,12 @@ const [covers, projects, photos] = await Promise.all([getCovers(), getProjects()
   </section>
 </BaseLayout>
 
+<script>
+  import { enhanceYouTubeFacades } from '../lib/youtube-player';
+
+  enhanceYouTubeFacades();
+</script>
+
 <style>
   .section {
     padding-block: var(--space-8);
@@ -67,20 +82,20 @@ const [covers, projects, photos] = await Promise.all([getCovers(), getProjects()
   }
 
   .section h2 {
-    margin-block: var(--space-1) var(--space-2);
+    margin-block: var(--space-1) var(--space-4);
     font-family: var(--font-serif-tc);
     font-size: var(--text-xl);
   }
 
-  .section ul {
-    max-width: var(--prose-max);
-    padding-left: 1.25em;
+  .cover-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr));
+    gap: var(--space-6) var(--space-3);
   }
 
   .project-grid {
     display: grid;
     gap: var(--space-8);
-    margin-top: var(--space-4);
   }
 
   @media (min-width: 768px) {
@@ -88,6 +103,10 @@ const [covers, projects, photos] = await Promise.all([getCovers(), getProjects()
       grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: var(--space-6);
     }
+  }
+
+  .more {
+    margin-top: var(--space-6);
   }
 
   .placeholder {

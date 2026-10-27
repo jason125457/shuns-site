@@ -1,12 +1,25 @@
 # 攝影：要嵌入的 Instagram 貼文，照這裡的順序顯示，建議 3–9 篇。
+# 目前是 IG shun__098 最新的 9 篇（2026-10-27）。
 # 欄位：
 #   id        代號，小寫英文、數字、連字號，不能重複
 #   instagram 貼文網址（/p/ 或 /reel/，後面的 ?igsh=... 會自動去掉）
 #   caption   （選填）一句說明，100 字以內
-#
-# 範例：
-# - id: tamsui-dusk
-#   instagram: https://www.instagram.com/p/XXXXXXXXXXX/
-#   caption: 淡水，傍晚。
 
-[]
+- id: ig-01
+  instagram: https://www.instagram.com/p/DeElaEAE2XC/
+- id: ig-02
+  instagram: https://www.instagram.com/p/DcTs_cFE6qb/
+- id: ig-03
+  instagram: https://www.instagram.com/p/DcRD3u-E1_b/
+- id: ig-04
+  instagram: https://www.instagram.com/p/DcL9XRsE3Qt/
+- id: ig-05
+  instagram: https://www.instagram.com/p/DaDfzOYkwrT/
+- id: ig-06
+  instagram: https://www.instagram.com/p/DZNZeGokw8F/
+- id: ig-07
+  instagram: https://www.instagram.com/p/DYKOBnqE7wN/
+- id: ig-08
+  instagram: https://www.instagram.com/p/DWySsX2kzcL/
+- id: ig-09
+  instagram: https://www.instagram.com/p/DWT9Uojk_oV/
