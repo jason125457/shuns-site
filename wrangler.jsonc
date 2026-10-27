@@ -1,13 +1,17 @@
 {
-  // Static assets only: Cloudflare serves dist/ directly, no Worker code runs.
+  // Static site from dist/. A tiny Worker (worker/index.ts) runs first only to redirect
+  // shuns.site to the canonical www.shuns.site; every other request goes to the assets.
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "shuns-site",
+  "main": "worker/index.ts",
   "compatibility_date": "2026-10-01",
   "assets": {
     "directory": "./dist",
+    "binding": "ASSETS",
     "not_found_handling": "none",
+    "run_worker_first": true,
   },
-  // Personal Feed lives on feed.shuns.site; both the apex and www serve this site.
+  // Personal Feed lives on feed.shuns.site. www is canonical; the apex redirects to it.
   "routes": [
     { "pattern": "shuns.site", "custom_domain": true },
     { "pattern": "www.shuns.site", "custom_domain": true },
