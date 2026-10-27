@@ -61,8 +61,8 @@ src/data/photos.yaml     # IG 貼文網址、（選填）說明
 ### 5. 部署（部分完成，2026-10-25）
 
 - ✅ `shuns.site` 已上線（wrangler 手動部署，只放靜態資產）。
-- ✅ CI／部署 workflow 和 variable `CLOUDFLARE_ACCOUNT_ID` 都已設定；還缺 secret `CLOUDFLARE_API_TOKEN`。
-- ✅ `www.shuns.site` 已綁到本站（2026-10-26），canonical 仍是 `https://shuns.site`。
+- ✅ CI／部署 workflow、variable `CLOUDFLARE_ACCOUNT_ID`、secret `CLOUDFLARE_API_TOKEN` 都已設定，推到 main 會自動部署。
+- ✅ `www.shuns.site` 已綁到本站（2026-10-26）。2026-10-27 起 **www 是主網址**：`worker/index.ts` 把 `shuns.site` 的請求 301 轉到 www（保留路徑和參數），canonical／og:url 都指向 www。
 - 備註：`npm audit` 回報 wrangler 內建 miniflare 的 undici 有漏洞，只影響本機開發工具，不會進到網站；等 wrangler 更新即可。
 
 - 建立 GitHub repo `jason125457/shuns-site`（公開，可以當作品之一）。
@@ -71,6 +71,8 @@ src/data/photos.yaml     # IG 貼文網址、（選填）說明
 - 完成標準：兩個網址都打得開，`www` 導到 apex（或反過來，二選一）。
 
 ## 需要你提供的內容（不急，階段 3 前給就好）
+
+- 已收到：YouTube `@shun1989`（官方 RSS 有 9 首翻唱）、IG `shun__098`（公開頁面看得到最新 12 篇貼文）。
 
 1. **翻唱清單**：YouTube 網址，每首附原唱、一兩句心得（日期我可以從 YouTube 抓）。
 2. **IG**：帳號名稱，加上想嵌入的 3–9 篇貼文網址。
